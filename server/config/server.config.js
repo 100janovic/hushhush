@@ -8,7 +8,7 @@ export const ServerConfig = {
     },
     cookie: {
         expiresIn: 24 * 60 * 60 * 1000,
-        tokenSecret: 'hushhush2025',
+        tokenSecret: process.env.TOKENSECRET,
         tokenKey: 'accesstoken'
     }
 };
