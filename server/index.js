@@ -15,8 +15,8 @@ export const dirname = path.dirname(filename);
 
 
 // Config
-const port = process.env.PORT || ServerConfig.port;
-const host = process.env.HOST ?? 'localhost';
+const port = ServerConfig.port;
+const host = ServerConfig.host;
 
 // Create
 const app = express();

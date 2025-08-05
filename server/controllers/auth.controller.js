@@ -18,7 +18,7 @@ export const register = async (req, res) => {
     })
 
     if (user) {
-        res.status(401).json({ message: "User exists!", user })
+        res.status(400).json({ message: "User exists!" })
         return;
     }
 
@@ -41,7 +41,9 @@ export const register = async (req, res) => {
         .setHeader("Access-Control-Allow-Credentials", "true")
         .json({
             message: "Register successs!",
-            user: newUser
+            user: {
+                email: newUser.email, id: newUser.id
+            }
         });
 };
 
