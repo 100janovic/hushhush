@@ -12,16 +12,16 @@ model User {
   id       String   @id @default(cuid())
   email    String   @unique
   password String
-  Secret   Secret[]
   Group    Group[]
+  Secret   Secret[]
 }
 
 model Group {
   id       String   @id @default(cuid())
   name     String
   userId   String
-  user     User     @relation(fields: [userId], references: [id])
   isPublic Boolean  @default(false)
+  user     User     @relation(fields: [userId], references: [id])
   Secret   Secret[]
 }
 
@@ -30,7 +30,7 @@ model Secret {
   slug    String
   value   String
   userId  String
-  user    User    @relation(fields: [userId], references: [id])
   groupId String?
   group   Group?  @relation(fields: [groupId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
 }

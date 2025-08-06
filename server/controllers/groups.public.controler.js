@@ -16,7 +16,14 @@ export const getGroup = async (req, res) => {
         return;
     }
 
+    const secrets = await db.secret.findMany({
+        where: {
+            groupId:groupId
+        }
+    })
+
     res.status(200).json({
-        group
+        group,
+        secrets: secrets
     });
 }
