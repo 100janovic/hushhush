@@ -1,3 +1,6 @@
+# REPO URL
+https://github.com/100janovic/hushhush
+
 1) Install node from https://nodejs.org/en (check if you have already installed by running command bellow)
 - after installation run command `node -v` to confirm that you have installed correctly
 

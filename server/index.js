@@ -2,7 +2,9 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import secretsRoutes from "./routes/secrets.routes.js";
-import authMiddleware from "./routes/auth.middleware.js";
+import groupRoutes from "./routes/groups.routes.js";
+import groupPublicRoutes from "./routes/groups.public.routes.js";
+import authMiddleware from "./middleware/auth.middleware.js";
 import { ServerConfig } from "./config/server.config.js";
 import { logger } from "./utils/logger.js";
 import cookieParser from "cookie-parser";
@@ -39,6 +41,8 @@ app.get('*', (req, res, next) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/secrets', authMiddleware, secretsRoutes);
+app.use('/api/groups', authMiddleware, groupRoutes);
+app.use('/api/share', groupPublicRoutes);
 
 // Start
 app.listen(port, () => {
