@@ -8,7 +8,7 @@ export const secrets = async (req, res) => {
         where: { userId }
     })
 
-    const mapped = secrets.reverse().map(s => ({
+    const mapped = secrets.map(s => ({
         ...s,
         value: s.value
             .split('')
@@ -37,21 +37,47 @@ export const getSecret = async (req, res) => {
     });
 }
 
+export const updateSecret = async (req, res) => {
+    const { name, value, groupId } = req.body;
+    const userId = req.user.id;
+    const secretId = req.params.secretId;
+
+    const db = new PrismaClient();
+    const secret = await db.secret.update({
+        data: {
+            name,
+            value,
+            userId,
+            groupId
+        },
+        where: {
+            id: secretId,
+            userId
+        }
+    });
+
+    res.status(200).json({
+        secret
+    });
+}
+
 export const addSecret = async (req, res) => {
-    const { slug, value } = req.body;
+    const { name, value, groupId } = req.body;
     const userId = req.user.id;
     const db = new PrismaClient();
     const newSecret = await db.secret.create({
         data: {
-            slug,
+            name,
             value,
-            userId
+            userId,
+            groupId
         },
         select: {
             id: true,
-            slug: true,
+            name: true,
             value: true,
-            userId: true
+            userId: true,
+            groupId: true
         }
     });
 
@@ -71,7 +97,7 @@ export const deleteSecret = async (req, res) => {
             userId
         }
     });
-    
+
     res.status(200).json({
         message: "Secret deleted!",
         id,
