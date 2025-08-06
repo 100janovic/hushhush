@@ -38,14 +38,14 @@ export const getSecret = async (req, res) => {
 }
 
 export const updateSecret = async (req, res) => {
-    const { name, value, groupId } = req.body;
+    const { slug, value, groupId } = req.body;
     const userId = req.user.id;
     const secretId = req.params.secretId;
 
     const db = new PrismaClient();
     const secret = await db.secret.update({
         data: {
-            name,
+            slug,
             value,
             userId,
             groupId
@@ -62,19 +62,19 @@ export const updateSecret = async (req, res) => {
 }
 
 export const addSecret = async (req, res) => {
-    const { name, value, groupId } = req.body;
+    const { slug, value, groupId } = req.body;
     const userId = req.user.id;
     const db = new PrismaClient();
     const newSecret = await db.secret.create({
         data: {
-            name,
+            slug,
             value,
             userId,
             groupId
         },
         select: {
             id: true,
-            name: true,
+            slug: true,
             value: true,
             userId: true,
             groupId: true
